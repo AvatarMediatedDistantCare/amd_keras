@@ -51,7 +51,7 @@ def create_vectors(kinect_filename, mocap_filename):
     progress = 0
     for i in range( len(input_vectors) - N_CONTEXT ):
         if (i/len(input_vectors - N_CONTEXT))*100 > progress:
-            print("progress: " + progress + "%")
+            print("progress: " + str(progress) + "%")
             progress += 1
         if i == 0:
             input_with_context = input_vectors[i:i + N_CONTEXT].reshape(1, N_CONTEXT, N_INPUT)
