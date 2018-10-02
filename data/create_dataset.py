@@ -7,7 +7,7 @@ import math
 N_INPUT = 100 # Number of MFCC features
 N_OUTPUT = 100 # Number of gesture features
 DATA_FILE = ''
-N_CONTEXT = 10
+N_CONTEXT = 20
 
 def create_vectors(kinect_filename, mocap_filename):
     # Step 1:

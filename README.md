@@ -17,12 +17,10 @@ python create_dataset.py 20 #  20: num of context（当該フレームを含め�
 TODO: (timesteps, 100) のデータを (timesteps, 20, 100) にしているようだが、本来は (timesteps, 21, 100) にするべき 
 
 ### 4. モデルの作成
-1. `python train.py model.hdf5` ... `train.py` を動かす
-- (`train_***.py` に関しては、名前を変えて管理していただけなので処理に関しては特に違い等はありません。)
-
-『この段階での成果物』
-1. (train.pyと同じディレクトリ) / model.hdf5...学習モデル
-1. (train.pyと同じディレクトリ) / losses.png...学習における損失のグラフ
+```sh
+cd amd_keras
+python train.py model.hdf5 20
+```
 
 ### 5. フィルタのかけ方
 1. `node movingAverage_oneEuro.js (input file name) (window size)` ... 推定エラー補正後のモーションの移動平均フィルタとoneEuroフィルタを適用するために使用

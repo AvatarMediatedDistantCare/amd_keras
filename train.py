@@ -5,11 +5,11 @@ from keras.layers.recurrent import SimpleRNN, LSTM
 from keras.optimizers import SGD, Adam
 from keras.layers.wrappers import TimeDistributed, Bidirectional
 from keras.layers.normalization import BatchNormalization
-from keras.models import load_model
+# from keras.models import load_model
 
-from keras import backend as K
-from keras import backend as K
-import tensorflow as tf
+# from keras import backend as K
+# from keras import backend as K
+# import tensorflow as tf
 
 import matplotlib
 
@@ -17,11 +17,11 @@ matplotlib.use('Agg')
 
 from matplotlib import pyplot
 
-import pandas as pd
+# import pandas as pd
 import numpy as np
 
 from sklearn.model_selection import train_test_split
-from util.multi_gpu2 import make_parallel
+# from util.multi_gpu2 import make_parallel
 
 EPOCHS = 500
 BATCH_SIZE = 2056
@@ -30,7 +30,7 @@ N_INPUT = 100
 N_OUTPUT = 100
 N_HIDDEN = 256
 
-N_CONTEXT = 10 # The number of frames in the context
+N_CONTEXT = 20 # The number of frames in the context
 
 
 def train(file_name):
@@ -92,5 +92,6 @@ def train(file_name):
     pyplot.savefig('losses_added_nrand_dataset_only_3degree.png')
 
 if __name__ == "__main__":
+    N_CONTEXT = int(sys.argv[2])
     print('sys.argv[1]')
     train(sys.argv[1])
