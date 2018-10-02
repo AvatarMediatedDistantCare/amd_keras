@@ -84,11 +84,23 @@ def create(name):
             X = np.concatenate((X, input_vectors), axis=0)
             Y = np.concatenate((Y, output_vectors), axis=0)
 
+    # 9:1に分ける（ランダム抽出）
+    num_train = int(len(X) * 0.9)
+    num_test = len(X) - num_train
+    num_all = num_train + num_test
 
-    x_file_name = 'npy/X.npy'
-    y_file_name = 'npy/Y.npy'
-    np.save(x_file_name, X)
-    np.save(y_file_name, Y)
+    id_all = np.random.choice(num_all, num_all, replace=False)
+    id_test = id_all[0:num_test]
+    id_train = id_all[num_test:num_all]
+    X_train = X[id_train]
+    Y_train = Y[id_train]
+    X_test = X[id_test]
+    Y_test = Y[id_test]
+
+    np.save("npy/X_train.npy", X_train)
+    np.save("npy/Y_train.npy", Y_train)
+    np.save("npy/X_test.npy", X_test)
+    np.save("npy/Y_test.npy", Y_test)
 
 if __name__ == "__main__":
     N_CONTEXT = int(sys.argv[1])

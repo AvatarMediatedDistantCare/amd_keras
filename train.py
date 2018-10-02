@@ -89,7 +89,7 @@ def train(file_name):
     pyplot.legend()
     pyplot.xlabel('epoch')
     pyplot.ylabel('loss')
-    pyplot.savefig('losses_added_nrand_dataset_only_3degree.png')
+    pyplot.savefig('losses.png')
 
 if __name__ == "__main__":
     N_CONTEXT = int(sys.argv[2])
