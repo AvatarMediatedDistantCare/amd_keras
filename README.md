@@ -11,8 +11,10 @@
 ### 3. データセットの作成
 ```sh
 cd data/
-python create_dataset.py 10 # 引数 10: num of context
+python create_dataset.py 20 #  20: num of context（当該フレームを含めて前後10frameずつみてる）
 ```
+
+TODO: (timesteps, 100) のデータを (timesteps, 20, 100) にしているようだが、本来は (timesteps, 21, 100) にするべき 
 
 ### 4. モデルの作成
 1. `python train.py model.hdf5` ... `train.py` を動かす
