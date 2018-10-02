@@ -14,6 +14,7 @@ def create_vectors(kinect_filename, mocap_filename):
     # kinectの生データ読み込みー配列化, org[frame][quaternion = 100（25関節 x quaternion）]
     # mocapの生データを読み込み -> 配列化, org[frame][quaternion = 100（25関節 x quaternion）]
 
+    print(kinect_filename)
     f = open(kinect_filename, 'r')
     kinect_data = f.readlines()
     for idx, line in enumerate(kinect_data):
@@ -47,20 +48,22 @@ def create_vectors(kinect_filename, mocap_filename):
     input_with_context = np.array([])
     output_with_context = np.array([])
 
+    progress = 0
     for i in range( len(input_vectors) - N_CONTEXT ):
+        if (i/len(input_vectors - N_CONTEXT))*100 > progress:
+            print("progress: " + progress + "%")
+            progress += 1
         if i == 0:
             input_with_context = input_vectors[i:i + N_CONTEXT].reshape(1, N_CONTEXT, N_INPUT)
             output_with_context = output_vectors[i + int(N_CONTEXT / 2)].reshape(1, N_OUTPUT)
         else:
             input_with_context = np.append(input_with_context,
                                            input_vectors[i:i + N_CONTEXT].reshape(1, N_CONTEXT, N_INPUT), axis=0)
-            output_with_context = np.append(output_with_context, output_vectors[i + N_CONTEXT].reshape(1, N_OUTPUT),
-                                            axis=0)
+            output_with_context = np.append(output_with_context, output_vectors[i + N_CONTEXT].reshape(1, N_OUTPUT), axis=0)
+
     print('前後N_contextを見たあとのshape')
     print(input_with_context.shape)
-    print(input_with_context[1])
     print(output_with_context.shape)
-    print(output_with_context[1])
 
     return input_with_context, output_with_context
     # return input_vectors, output_vectors
@@ -71,8 +74,6 @@ def create(name):
     DATA_FILE = pd.read_csv('data_path.csv')
     X = np.array([])
     Y = np.array([])
-    print(DATA_FILE['kinect_filename'][0])
-
 
     for i in range(len(DATA_FILE)):
         input_vectors, output_vectors = create_vectors(DATA_FILE['kinect_filename'][i], DATA_FILE['mocap_filename'][i])
