@@ -84,7 +84,7 @@ def create(name):
             X = np.concatenate((X, input_vectors), axis=0)
             Y = np.concatenate((Y, output_vectors), axis=0)
 
-        if i == 0: # i:0-38 まで通常のデータセット、以降はオーグメンテーションデータ
+        if i == 38: # i:0-38 まで通常のデータセット、以降はオーグメンテーションデータ
             # テストデータを取り除いておく（ランダム抽出で、9:1に分ける）
             num_train = int(len(X) * 0.9)
             num_test = len(X) - num_train
