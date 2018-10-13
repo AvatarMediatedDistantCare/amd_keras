@@ -21,8 +21,14 @@ TODO: (timesteps, 100) のデータを (timesteps, 20, 100) にしているよ�
 cd amd_keras
 python train.py model.hdf5 20
 ```
+### 5. 予測
+``` sh
+cd amd_keras
+mkdir predict
+python predict.py model.hdf5 data/npy/X_test.npy predict/Y_test_predict.csv
+```
 
-### 5. フィルタのかけ方
+### 6. フィルタのかけ方
 1. `node movingAverage_oneEuro.js (input file name) (window size)` ... 推定エラー補正後のモーションの移動平均フィルタとoneEuroフィルタを適用するために使用
 
 『この段階の成果物』
@@ -30,7 +36,7 @@ python train.py model.hdf5 20
 1. (input file nameと同じディレクトリ) / OOO_apply_one_euro_filter.csv ... one_euroフィルタが適用されたモーションデータ
 1. (input file nameと同じディレクトリ) / OOO_apply_moving_average_(window size).csv ... (window size)分の移動平均フィルタが適用されたモーションデータ
 
-### 6. 描画プログラム
+### 7. 描画プログラム
 1. input_predicted_correct.js ... input, predicted, correctを比較するコード
 (比較したいもののためにコード内の `filename` 適宜変えてください)
 
