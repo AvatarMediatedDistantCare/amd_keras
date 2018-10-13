@@ -18,7 +18,7 @@ def create_vectors(kinect_filename, mocap_filename):
     f = open(kinect_filename, 'r')
     kinect_data = f.readlines()
     for idx, line in enumerate(kinect_data):
-        line = line.rstrip()
+        line = kinect_data[idx].rstrip()
         kinect_data[idx]= [float(x) if(x != '' and math.isnan(float(x)) != True) else 0.0 for x in line.split(',')]
     input_vectors = np.array(kinect_data)
 
@@ -74,17 +74,35 @@ def create(name):
     DATA_FILE = pd.read_csv('data_path.csv')
     X = np.array([])
     Y = np.array([])
+    X_list = []
+    Y_list = []
 
     for i in range(len(DATA_FILE)):
         input_vectors, output_vectors = create_vectors(DATA_FILE['kinect_filename'][i], DATA_FILE['mocap_filename'][i])
-        if len(X) == 0:
-            X = input_vectors
-            Y = output_vectors
-        else:
-            X = np.concatenate((X, input_vectors), axis=0)
-            Y = np.concatenate((Y, output_vectors), axis=0)
+
+        # 通常データの処理
+        if i <= 38:
+            if len(X) == 0:
+                X = input_vectors
+                Y = output_vectors
+            else:
+                X = np.concatenate((X, input_vectors), axis=0)
+                Y = np.concatenate((Y, output_vectors), axis=0)
+            X_list.append(X)
+            Y_list.append(Y)
+            X = np.array([])
+            Y = np.array([])
 
         if i == 38: # i:0-38 まで通常のデータセット、以降はオーグメンテーションデータ
+            # データをくっつける
+            for j in range(len(X_list)):
+                if len(X) == 0:
+                    X = X_list[j]
+                    Y = Y_list[j]
+                else:
+                    X = np.concatenate((X, np.array(X_list[j])))
+                    Y = np.concatenate((Y, np.array(Y_list[j])))
+
             # テストデータを取り除いておく（ランダム抽出で、9:1に分ける）
             num_train = int(len(X) * 0.9)
             num_test = len(X) - num_train
@@ -96,14 +114,34 @@ def create(name):
             Y_train = Y[id_train]
             X_test = X[id_test]
             Y_test = Y[id_test]
-            X = X_train
-            Y = Y_train
-
+            X = np.array([])
+            Y = np.array([])
             np.save("npy/X_test.npy", X_test)
             np.save("npy/Y_test.npy", Y_test)
+            np.save("npy/X_train.npy", X_train)
+            np.save("npy/Y_train.npy", Y_train)
 
-    np.save("npy/X_train.npy", X)
-    np.save("npy/Y_train.npy", Y)
+        # 拡張データの処理
+        if i>=39:
+            if len(X) == 0:
+                X = input_vectors
+                Y = output_vectors
+            else:
+                X = np.concatenate((X, input_vectors), axis=0)
+                Y = np.concatenate((Y, output_vectors), axis=0)
+            X_list.append(X)
+            Y_list.append(Y)
+            X = np.array([])
+            Y = np.array([])
+
+        if i == len(DATA_FILE):
+            # データをくっつける
+            for j in range(39, len(X_list)):
+                X = np.concatenate((X_train, np.array(X_list[j])))
+                Y = np.concatenate((Y_train, np.array(Y_list[j])))
+
+            np.save("npy/X_train.npy", X)
+            np.save("npy/Y_train.npy", Y)
 
 if __name__ == "__main__":
     N_CONTEXT = int(sys.argv[1])

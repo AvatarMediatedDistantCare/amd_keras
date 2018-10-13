@@ -58,6 +58,3 @@ kinect_filename,mocap_filename
 ../data/csv/kinect_noised/ki_twist_side_3degree_added.csv,../data/csv/mocap/mo_twist_side.csv
 ../data/csv/kinect_noised/ki_walking_back_3degree_added.csv,../data/csv/mocap/mo_walking_back.csv
 ../data/csv/kinect_noised/ki_walking_side_3degree_added.csv,../data/csv/mocap/mo_walking_side.csv
-../data/csv/kinect_noised/ki_zenkutsu_back_3degree_added.csv,../data/csv/mocap/mo_zenkutsu_back.csv
-../data/csv/kinect_noised/ki_zenkutsu_front_3degree_added.csv,../data/csv/mocap/mo_zenkutsu_front.csv
-../data/csv/kinect_noised/ki_zenkutsu_side_3degree_added.csv,../data/csv/mocap/mo_zenkutsu_side.csv
