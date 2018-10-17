@@ -47,7 +47,7 @@ def create(kinect_filename, npy_filename):
     X = np.array([])
 
     input_vectors = create_vectors(kinect_filename)
-    np.save(npy_filename, X)
+    np.save(npy_filename, input_vectors)
 
 if __name__ == "__main__":
     create(sys.argv[1], sys.argv[2])
