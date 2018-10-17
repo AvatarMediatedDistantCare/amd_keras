@@ -22,11 +22,24 @@ cd amd_keras
 python train.py model.hdf5 20
 ```
 ### 5. 予測
-``` sh
+```sh
 cd amd_keras
 mkdir predict
 python predict.py model.hdf5 data/npy/X_test.npy predict/Y_test_predict.csv
 ```
+
+### 6. 描画プログラム
+```sh
+cd amd_keras
+python convert_npy_to_csv.py data/npy/Y_test.npy predict/Y_test.csv
+
+cd data
+python create_input_for_visualization.py visualization/kinect/ki_crossing_arms_back_splited.csv visualization/kinect/ki_crossing_arms_back_splited.npy
+...
+```
+
+
+
 
 ### 6. フィルタのかけ方
 1. `node movingAverage_oneEuro.js (input file name) (window size)` ... 推定エラー補正後のモーションの移動平均フィルタとoneEuroフィルタを適用するために使用

@@ -7,7 +7,7 @@ def create_csv(filename, prediction):
         print("output vector shape: " + str(prediction.shape))
 
         print(prediction)
-        np.savetxt(filename, prediction,delimiter=',')
+        np.savetxt(filename, prediction, delimiter=',')
         # for row in prediction:
         #     row = np.delete(row, np.s_[0:3])
         #     row[0:3] = 0
