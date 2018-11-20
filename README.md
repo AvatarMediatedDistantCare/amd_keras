@@ -28,13 +28,39 @@ mkdir predict
 python predict.py model.hdf5 data/npy/X_test.npy predict/Y_test_predict.csv
 ```
 
-### 6. 描画プログラム
+### 6. 定量的評価
+
 ```sh
 cd amd_keras
 python convert_npy_to_csv.py data/npy/Y_test.npy predict/Y_test.csv
+```
 
+
+
+### 7. 主観的評価（描画）
+
+```
+- data
+ |-- visualization/
+   |-- kinect/: データセットからカットした60[s]分の入力データ（学習データには含まれてない）
+   |-- mocap/: データセットからカットした60[s]分の正解データ（学習データには含まれてない）
+   |-- predict/: 
+```
+
+
+描画用のデータを準備
+
+```sh
 cd data
 python create_input_for_visualization.py visualization/kinect/ki_crossing_arms_back_splited.csv visualization/kinect/ki_crossing_arms_back_splited.npy
+...
+
+```
+
+予測
+```sh
+cd amd_keras
+python predict.py model.hdf5 data/visualization/kinect/ki_crossing_arms_back_splitted.npy data/visualization/predict/ki_crossing_arms_back_splitted_predict.csv
 ...
 ```
 
